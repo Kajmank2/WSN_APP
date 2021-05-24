@@ -1,29 +1,21 @@
-import  tkinter as tk
-main_window =tk.Tk()
+from tkinter import *
 
+root = Tk()
+root.title("Notepad")
+root.geometry("800x600+100+100")
 
-c = tk.Canvas(main_window, width=400, height=400, bg="blue")
-c.pack()
-i=0
-c.create_rectangle(0, 0, 8, 8, fill="red", outline = 'blue')
-longb=5
-for x in range(12):
-    c.create_rectangle(0 + i, 0, 0 + i + longb, 5, fill="red")
-    c.create_rectangle(0 + i, 0 + i, 0 + i + longb, i + longb, fill="red")
-    c.create_rectangle(0 + i, 0 + i, 0 + i + longb, i + longb, fill="red")
-    c.create_rectangle(0 + i, 0 + i, 0 + i + longb, i + longb, fill="red")
-    c.create_rectangle(0 + i, 0 + i, 0 + i + longb, i + longb, fill="red")
-    c.create_rectangle(0 + i, 0 + i, 0 + i + longb, i + longb, fill="red")
-    c.create_rectangle(0 + i, 0 + i, 0 + i + longb, i + longb, fill="green")
-    c.create_rectangle(0 + i, 0 + i, 0 + i + longb, i + longb, fill="red")
-    c.create_rectangle(0 + i, 0 + i, 0 + i + longb, i + longb, fill="red")
-    c.create_rectangle(0 + i, 0 + i, 0 + i + longb, i + longb, fill="green")
-    c.create_rectangle(0 + i, 0 + i, 0 + i + longb, i + longb, fill="red")
-    c.create_rectangle(0 + i, 0 + i, 0 + i + longb, i + longb, fill="red")
-    c.create_rectangle(0 + i, 0 + i, 0 + i + longb, i + longb, fill="green")
-    c.create_rectangle(0 + i, 0 + i, 0 + i + longb, i + longb, fill="red")
-    c.create_rectangle(0 + i, 0 + i, 0 + i + longb, i + longb, fill="green")
-    c.create_rectangle(0 + i, 0 + i, 0 + i + longb, i + longb, fill="red")
+s1 = Scrollbar(root)
+s1.pack(side=RIGHT, fill=Y)
+# HORIZONTAL Set horizontal scroll bar, the default is the vertical
+s2 = Scrollbar(root, orient=HORIZONTAL)
+s2.pack(side=BOTTOM, fill=X)
 
-    i = i + 33;
-main_window.mainloop()
+# Create a text box
+# Wrap settings do not wrap
+textpad = Text(root, width=200, yscrollcommand=s1.set, xscrollcommand=s2.set, wrap='none')
+textpad.pack(expand=YES, fill=BOTH)
+
+s1.config(command=textpad.yview)
+s2.config(command=textpad.xview)
+
+root.mainloop()
