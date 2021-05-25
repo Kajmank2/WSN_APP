@@ -1,4 +1,6 @@
 import random
+from tkinter import filedialog
+
 import PIL
 from PIL import ImageTk, Image, ImageDraw
 import tkinter as tk
@@ -12,28 +14,13 @@ def InitGui():
         scrollbar = tk.Scrollbar(main_window,orient = 'vertical')
         scrollbar.pack(side='right', fill='y')
         #PADY , PADX - PADDINGI
-
+        ListofNumbers=[]
 #RADIOBuTTONS=======================================================================================
         MODES = [("36",36),("144",144),("411",411)]
         poi=tk.StringVar()
         poi.set(36)
         for text, mode in MODES:
                 tk.Radiobutton(main_window,variable=poi, text=text, value=mode,command=lambda : clicked(text)).pack()
-#======================================================= MENUUUUBAR=============
-        def donothing(): #HELPER
-                x = 0
-        def Open():
-                x=1
-
-        menubar = tk.Menu(main_window)
-        filemenu = tk.Menu(menubar, tearoff=0)
-        filemenu.add_command(label="New", command=donothing)
-        filemenu.add_command(label="Open", command=Open)
-        filemenu.add_command(label="Save", command=donothing)
-        filemenu.add_separator()
-        filemenu.add_command(label="Exit", command=main_window.quit)
-        menubar.add_cascade(label="File", menu=filemenu)
-
         # RADIO BUTTONS CHANGE POI
         def clicked(value):
                 value=poi.get()
@@ -41,6 +28,8 @@ def InitGui():
                 tk.Label(text="Y 0-100").pack(side="left")
                 c = tk.Canvas(main_window, width=400, height=400, bg="white")
                 c.pack(side="left")
+                c.create_line(0,400,400,400,fill="black",width=3)
+                c.create_line(0, 0, 0, 400, fill="black", width=7)
                 '''
                 frame1 = tk.Frame(main_window)
                 frame1.pack()
@@ -150,7 +139,38 @@ def InitGui():
                 def SaveImage():
                         x=0
 
+                def donothing():  # HELPER
+                        x = 0
 
+                ####################################CZYTAJ PLik ####################################################################################
+                def Open(): #SENSOR ID FILE
+                        text_file = filedialog.askopenfilename(initialdir="C:/", title="Open TextFile",
+                                                               filetypes=(("Text Files", "*.txt"),))
+                        text_file = open(text_file, 'r')
+                        '''
+                        for x in text_file:
+                                print(x)
+                        '''
+                        for x in text_file:
+                                ListofNumbers.append(x)
+                        ListofNumbers.pop(0)
+                        for x in ListofNumbers:
+                                print(x)
+                        for x in ListofNumbers:
+                                xx=x[2:4]
+                                yy=x[8:10]
+                                print(xx+" "+yy)
+                                c.create_oval(int(xx)*4, int(yy)*4,int(xx)*4+10,int(yy)*4+10, fill="green",stipple="gray50",
+                                                   outline="Red", width=1)
+
+                menubar = tk.Menu(main_window)
+                filemenu = tk.Menu(menubar, tearoff=0)
+                filemenu.add_command(label="New", command=donothing)
+                filemenu.add_command(label="Open", command=Open)
+                filemenu.add_command(label="Save", command=donothing)
+                filemenu.add_separator()
+                filemenu.add_command(label="Exit", command=main_window.quit)
+                menubar.add_cascade(label="File", menu=filemenu)
 
                 myButton = tk.Button(main_window, text="COMPLIE", command=Init)
                 myButton.pack()
@@ -159,12 +179,10 @@ def InitGui():
                 SaveButton=tk.Button(main_window,text="SaveImage",command=SaveImage)
                 SaveButton.pack(side="left")
 
-
-       # myButton = tk.Button(main_window, text="COMPLIE", command=lambda: clicked(text))
-       # myButton.pack()
+                main_window.config(menu=menubar)
+#########################################################################################################################
 
         #INSTANCE
-        main_window.config(menu=menubar)
         main_window.mainloop()
 
 
