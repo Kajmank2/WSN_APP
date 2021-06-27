@@ -1,4 +1,4 @@
-
+'''
 from tkinter import *
 
 def redrawAll(canvas):
@@ -35,3 +35,23 @@ def run():
     root.mainloop()  # This call BLOCKS (so your program waits until you close the window!)
 
 run()
+'''
+Lista=[30,50,70,30,50,100]
+r=35
+for x in Lista:
+    x=x+1
+    for y in Lista:
+        if(x-r <y <x+r):
+            print(x)
+
+
+def circle(x1, y1, x2, y2, r1, r2):
+    distSq = (x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2)
+    radSumSq = (r1 + r2) * (r1 + r2)
+    if (distSq == radSumSq):
+        return 1
+    elif (distSq > radSumSq):
+        return -1
+    else:
+        return 0
+print(circle(30,30,50,70,35,35))
