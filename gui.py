@@ -17,8 +17,7 @@ calcSensorID=[]
 calcSensorID.append(s)
 listSenss.append(s)
 SquareArenas=160000/4
-
-
+amountReadWSN=0
 def InitGui():
         main_window =tk.Tk()
         scrollbar = tk.Scrollbar(main_window,orient = 'vertical')
@@ -33,8 +32,47 @@ def InitGui():
         c.create_line(0,400,400,400,fill="black",width=3)
         c.create_line(0, 0, 0, 400, fill="black", width=3)
         #POI 411
-        longb=5
         #FIRST POI
+        def OpenSensorWSN():
+                        id=1
+                        listSens= []
+                        text_file = filedialog.askopenfilename(initialdir="C:/", title="Open TextFile",
+                                                               filetypes=(("Text Files", "*.txt"),))
+                        text_file = open(text_file, 'r')
+                        # DELETE FIRST PARAMETER
+                        for x in text_file:
+                                ListofNumbers.append(x)
+                        ListofNumbers.pop(0)
+                        for x in ListofNumbers:
+                                print(x)
+                        '''
+                        for x in ListofNumbers:
+                                xx=x[0:2]
+                                yy=x[5:7]
+
+                                red = random.randint(0, 2)
+                                if red == 1:
+                                        colo = "red"
+                                else:
+                                        colo = "green"
+                                print(xx + " " + yy)
+                                c.create_oval(int(xx) * 4, int(yy) * 4, int(xx) * 4 + 2, int(yy) * 4 + 2,
+                                              stipple="gray50",
+                                              fill="green", width=1, tags=id)
+                                c.create_oval(int(xx) * 4 + int(radius.get()) * 4,
+                                              int(yy) * 4 + int(radius.get()) * 4,
+                                              int(xx) * 4 - int(radius.get()) * 4,
+                                              int(yy) * 4 - int(radius.get()) * 4,
+                                              outline=colo)
+                                c.create_text(int(xx) * 4 + 8,
+                                              int(yy) * 4 + 8,
+                                              font="Times 10 italic bold", text=id)
+                                s = str(id) + " " + str(round(int(xx))) + ".00 " + str(round(int(yy))) + ".00 "
+                                calcSensorID.append(s)
+                                print(calcSensorID)
+                                id+=1;
+                         '''
+        longb=5
         i=0
         for x in range(20):
                 c.create_rectangle(0 + i, 0, 0 + i + longb, 2, fill="black")
@@ -62,13 +100,11 @@ def InitGui():
 
                 #X and Y
                 # ENTRY
-        count = tk.StringVar()
         radius = tk.StringVar()
         color = tk.StringVar()
         battery = tk.StringVar()
-        count.set("5")
         radius.set("35")
-        color.set("0.5")
+        color.set("1")
         battery.set("10")
                 ######################################RADIO BUTTONS##################
         variableRadio = tk.StringVar(main_window, "36")
@@ -76,16 +112,18 @@ def InitGui():
                 variableRadio.set(text)
         valuesRadio = {"POI 36": "36", "POI 144":"144", " POI 411" : "411"}
         variableRadio=tk.StringVar(main_window,"36")
+        tk.Label(text="---Points of interests (POIs)---").pack()
         for (text, value) in valuesRadio.items():
                         tk.Radiobutton(main_window, text=text, variable=variableRadio,
                                     value=value ,command=choice(value)).pack(ipady=5)
 ############ RIGHT GUI#########################
-        tk.Label(text="COUNT").pack()
-        countSens = tk.Entry(main_window,textvariable =count, width=10, borderwidth=5, ).pack()
+        tk.Label(text="---Sensor Parameters---").pack()
+        SaveButton = tk.Button(main_window, text="Read WSN", command=OpenSensorWSN).pack()
         tk.Label(text="RADIUS").pack()
         radiusSens = tk.Entry(main_window,textvariable =radius ,width=10, borderwidth=5).pack()
         tk.Label(text="Battery Capacity").pack()
         batteryCapacity = tk.Entry(main_window, textvariable=battery, width=10, borderwidth=5).pack()
+        tk.Label(text="---ACTIVE Sensor---").pack()
         tk.Label(text="% Sensor Activity VALUE: 0-1").pack()
         propabilityEntry = tk.Entry(main_window, textvariable=color, width=10, borderwidth=5).pack()
 # INICJACJA
@@ -93,38 +131,58 @@ def InitGui():
                 c.delete('all')
                 sensorId=0
                 listSens= []
-                SquareArea = 160000.00/4
+                amountReadWSN=0
                 #List which save param for
-                countCIRCLE=int(count.get())
-                colores= float(count.get()) * float(color.get())
+                for x in ListofNumbers:
+                    print(x)
+                    amountReadWSN = amountReadWSN + 1
+                countCIRCLE=amountReadWSN
+                colores= float(amountReadWSN) * float(color.get())
                 # COLOR FOR CIRCLE
-                for colorRed in range (1,1+int(colores)):
-                                sensorId +=1
-                                xval = random.randint(10, 350)
-                                yval = random.randint(10, 350)
-                                s2 = c.create_oval(xval + int(radius.get()) * 4,
-                                                   yval + int(radius.get()) * 4,
-                                                   xval - int(radius.get()) * 4,
-                                                   yval - int(radius.get()) * 4, stipple="gray12",
+                for x in ListofNumbers:
+                    rand = random.uniform(0, 1)
+                    if (rand < float(color.get())):
+                                    xval = int(x[0:2])
+                                    yval = int(x[5:7])
+                                    sensorId +=1
+                                    s2 = c.create_oval(xval*4 + int(radius.get()) * 4,
+                                                   yval*4 + int(radius.get()) * 4,
+                                                   xval*4 - int(radius.get()) * 4,
+                                                   yval*4 - int(radius.get()) * 4, stipple="gray12",
                                                    outline="Green",
-                                                   fill="light green", tags=sensorId)
-                                s1 = c.create_oval(xval-2, yval-2, xval+2 , yval+2, stipple="gray12" ,
+                                                    tags=sensorId)
+                                    s1 = c.create_oval(xval*4-2, yval*4-2, xval*4+2 , yval*4+2, stipple="gray12" ,
                                                                              outline="Green",
                                                                                 fill="light green",tags=sensorId)
-                                s3 = c.create_text(xval + 8,
-                                                   yval + 8,
+                                    s3 = c.create_text(xval*4 + 8,
+                                                   yval*4 + 8,
                                                    font="Times 10 italic bold", text=sensorId)
-                                s=str(sensorId)+" "+ str(round(xval/4))+ ".00 " + str(round(yval/4))+".00 "
-                                tmp = float(radius.get()) * float(radius.get()) * 3.14
-                                ListXySensCov.append("FIELD " + str(int(tmp)) + " X:"+str(int((xval + int(radius.get()) * 4 / 2)/4)) + " Y:"+ str(int((yval + int(radius.get()) * 4 / 2)/4)) + " R:"+ str(int(radius.get())))
-                                listSens.append(s)
-                                print(ListXySensCov)
+                    else :
+                                    xval = int(x[0:2])
+                                    yval = int(x[5:7])
+                                    sensorId += 1
+                                    s2 = c.create_oval(xval * 4 + int(radius.get()) * 4,
+                                           yval * 4 + int(radius.get()) * 4,
+                                           xval * 4 - int(radius.get()) * 4,
+                                           yval * 4 - int(radius.get()) * 4, stipple="gray12",
+                                           outline="Red",
+                                           tags=sensorId)
+                                    s1 = c.create_oval(xval * 4 - 2, yval * 4 - 2, xval * 4 + 2, yval * 4 + 2, stipple="gray12",
+                                           outline="Green",
+                                           fill="light green", tags=sensorId)
+                                    s3 = c.create_text(xval * 4 + 8,
+                                           yval * 4 + 8,
+                                           font="Times 10 italic bold", text=sensorId)
+
+                                    '''
+                                    s=str(sensorId)+" "+ str(round(xval/4))+ ".00 " + str(round(yval/4))+".00 "
+                                    tmp = float(radius.get()) * float(radius.get()) * 3.14
+                                    ListXySensCov.append("FIELD " + str(int(tmp)) + " X:"+str(int((xval + int(radius.get()) * 4 / 2)/4)) + " Y:"+ str(int((yval + int(radius.get()) * 4 / 2)/4)) + " R:"+ str(int(radius.get())))
+                                    listSens.append(s)
 
                         # COLOR FOR CIRCLE
-                for colorGreen in range(1, 1 + countCIRCLE-int(colores)):
+                    for colorGreen in range(1, 1 + countCIRCLE-int(colores)):
                                 sensorId +=1
-                                xval = random.randint(10, 300)
-                                yval = random.randint(10, 300)
                                 s2 = c.create_oval(xval + int(radius.get()) * 4,
                                                    yval + int(radius.get()) * 4,
                                                    xval - int(radius.get()) * 4,
@@ -145,6 +203,7 @@ def InitGui():
                                 listSens.append(s)
                                 ListCover.append(x)
                                 print(ListXySensCov)
+                                '''
                 RadioVariable = variableRadio.get()
                 longb = 5
                 i = 0
@@ -379,7 +438,7 @@ def InitGui():
                                 print(x)
                         # LIST NEIGTBOUR
                         ListSensorneigh.append("#parameters of run: ")
-                        ListSensorneigh.append("#Number of Sensors " + str(count.get()))
+                        ListSensorneigh.append("#Number of Sensors " + str(amountReadWSN))
                         ListSensorneigh.append("#Sensor Range: " + str(radius.get()))
                         ListSensorneigh.append("#POI: "+str(variableRadio.get()))
                         ListSensorneigh.append("#Sensor for file: " + str(text_file.name))
@@ -417,12 +476,25 @@ def InitGui():
                         for x in ListofNumbers:
                             id=1
                             for y in ListofNumbers:
-                                ListofNeighbour.append(str(id) + str(circle(int(x[0:2]),int(y[0:2]), int(x[5:7]),int(y[5:7]),int(radius.get()),int(radius.get()))))
-                                xs=str(id) + str(circle(int(x[0:2]),int(y[0:2]), int(x[5:7]),int(y[5:7]),int(radius.get()),int(radius.get())))
-                                if(str(counter) == xs[0] or "-1"==xs[1:3]):
-                                    donothing()
+                                if(counter<10):
+                                    ListofNeighbour.append(str(id) + str(circle(int(x[0:2]),int(y[0:2]), int(x[5:7]),int(y[5:7]),int(radius.get()),int(radius.get()))))
+                                    xs=str(id) + str(circle(int(x[0:2]),int(y[0:2]), int(x[5:7]),int(y[5:7]),int(radius.get()),int(radius.get())))
+                                    if(str(counter) == xs[0] or "-1"==xs[1:3]):
+                                        donothing()
+                                    else:
+                                        ys+=xs[0]
                                 else:
-                                    ys+=xs[0]
+                                    ListofNeighbour.append(str(id)  + str(
+                                        circle(int(x[0:2]), int(y[0:2]), int(x[5:7]), int(y[5:7]), int(radius.get()),
+                                               int(radius.get()))))
+                                    xs = str(id) + str(
+                                        circle(int(x[0:2]), int(y[0:2]), int(x[5:7]), int(y[5:7]), int(radius.get()),
+                                               int(radius.get())))
+                                    if (str(counter) == xs[0:1] or "-1" == xs[2:4]):
+                                        donothing()
+                                    else:
+                                        ys += xs[0:1]
+                                ###################
                                 id = id + 1
                             ListSensorneigh.append(str(counter) + "    "+str(len(ys)) + "     " +ys)
                             ys=""
@@ -449,7 +521,7 @@ def InitGui():
         filemenu.add_command(label="Exit", command=main_window.quit)
         menubar.add_cascade(label="File", menu=filemenu)
 
-        myButton = tk.Button(main_window, text="COMPLIE", command=Init)
+        myButton = tk.Button(main_window, text="SHOW WSN", command=Init)
         myButton.pack()
         ExitButton = tk.Button(main_window,text="EXIT",command=Exit)
         ExitButton.pack(side="right")
