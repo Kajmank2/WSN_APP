@@ -3,20 +3,25 @@ from tkinter import filedialog
 import PIL
 from PIL import ImageTk, Image, ImageDraw
 import tkinter as tk
+import tkinter.messagebox as ms
 import subprocess
 import os
 import sys
 
 #LIST TO FILES
+from pandas._libs.properties import cache_readonly
+
 s="#id x y"
 listSenss = []
 ListXySensCov=[]
 ListSensorneigh=[]
 ListCover=[]
+ListPOI=[]
+Poir=4
 calcSensorID=[]
 calcSensorID.append(s)
-listSenss.append(s)
-SquareArenas=160000/4
+SquareArenas=40000
+Pi=3.14
 amountReadWSN=0
 def InitGui():
         main_window =tk.Tk()
@@ -24,19 +29,23 @@ def InitGui():
         scrollbar.pack(side='right', fill='y')
         #PADY , PADX - PADDINGI
         ListofNumbers=[]
+        ListofNumbersCalcSingleq=[]
+        converted_listCalcSingleq = []
+        ListofNumbersCalcSingleqState=[]
+        ListPOI = []
+        SensorHelper=[]
         ListofNeighbour=[]
         tk.Label(text="X 0-100").pack(side="bottom")
         tk.Label(text="Y 0-100").pack(side="left")
         c = tk.Canvas(main_window, width=400, height=400, bg="white")
         c.pack(side="left")
-        c.create_line(0,400,400,400,fill="black",width=3)
-        c.create_line(0, 0, 0, 400, fill="black", width=3)
         #POI 411
         #FIRST POI
         def OpenMYSensorStates(): #SENSOR ID FILE
                         text_file = filedialog.askopenfilename(initialdir="C:/", title="Open TextFile",
                                                                filetypes=(("Text Files", "*.txt"),))
                         text_file = open(text_file, 'r')
+                        listSenss.clear() #CLEAR LIST
                         for x in text_file:
                                 listSenss.append(x)
                         for x in listSenss:
@@ -73,34 +82,82 @@ def InitGui():
                         ListofNumbers.pop(0)
                         for x in ListofNumbers:
                                 print(x)
-        longb=5
+        longb=2
         i=0
-        for x in range(20):
-                c.create_rectangle(0 + i, 0, 0 + i + longb, 2, fill="black")
-                c.create_rectangle(0 + i, 20, 0 + i + longb, 22, fill="black")
-                c.create_rectangle(0 + i, 40, 0 + i + longb, 42, fill="black")
-                c.create_rectangle(0 + i, 60, 0 + i + longb, 62, fill="black")
-                c.create_rectangle(0 + i, 80, 0 + i + longb, 82, fill="black")
-                c.create_rectangle(0 + i, 100, 0 + i + longb, 102, fill="black")
-                c.create_rectangle(0 + i, 120, 0 + i + longb, 122, fill="black")
-                c.create_rectangle(0 + i, 140, 0 + i + longb, 142, fill="black")
-                c.create_rectangle(0 + i, 160, 0 + i + longb, 162, fill="black")
-                c.create_rectangle(0 + i, 180, 0 + i + longb, 182, fill="black")
-                c.create_rectangle(0 + i, 200, 0 + i + longb, 202, fill="black")
-                c.create_rectangle(0 + i, 220, 0 + i + longb, 222, fill="black")
-                c.create_rectangle(0 + i, 240, 0 + i + longb, 242, fill="black")
-                c.create_rectangle(0 + i, 260, 0 + i + longb, 262, fill="black")
-                c.create_rectangle(0 + i, 280, 0 + i + longb, 282, fill="black")
-                c.create_rectangle(0 + i, 300, 0 + i + longb, 302, fill="black")
-                c.create_rectangle(0 + i, 320, 0 + i + longb, 322, fill="black")
-                c.create_rectangle(0 + i, 340, 0 + i + longb, 342, fill="black")
-                c.create_rectangle(0 + i, 360, 0 + i + longb, 362, fill="black")
-                c.create_rectangle(0 + i, 380, 0 + i + longb, 382, fill="black")
-                c.create_rectangle(0 + i, 400, 0 + i + longb, 402, fill="black")
+        for x in range(21):
+                c.create_oval(0 + i, 0, 0 + i + longb, 2, fill="black")
+                s=""+str(0+i/4) + " " + str(0/4)
+                ListPOI.append(s)
+                c.create_oval(0 + i, 20, 0 + i + longb, 22, fill="black")
+                s = "" + str(0 + i/4) + " " + str(20/4)
+                ListPOI.append(s)
+                c.create_oval(0 + i, 40, 0 + i + longb, 42, fill="black")
+                s = "" + str(0 + i/4) + " " + str(40/4)
+                ListPOI.append(s)
+                c.create_oval(0 + i, 60, 0 + i + longb, 62, fill="black")
+                s = "" + str(0 + i/4) + " " + str(60/4)
+                ListPOI.append(s)
+                c.create_oval(0 + i, 80, 0 + i + longb, 82, fill="black")
+                s = "" + str(0 + i/4) + " " + str(80/4)
+                ListPOI.append(s)
+                c.create_oval(0 + i, 100, 0 + i + longb, 102, fill="black")
+                s = "" + str(0 + i/4) + " " + str(100/4)
+                ListPOI.append(s)
+                c.create_oval(0 + i, 120, 0 + i + longb, 122, fill="black")
+                s = "" + str(0 + i/4) + " " + str(120/4)
+                ListPOI.append(s)
+                c.create_oval(0 + i, 140, 0 + i + longb, 142, fill="black")
+                s = "" + str(0 + i/4) + " " + str(140/4)
+                ListPOI.append(s)
+                c.create_oval(0 + i, 160, 0 + i + longb, 162, fill="black")
+                s = "" + str(0 + i/4) + " " + str(160/4)
+                ListPOI.append(s)
+                c.create_oval(0 + i, 180, 0 + i + longb, 182, fill="black")
+                s = "" + str(0 + i/4) + " " + str(180/4)
+                ListPOI.append(s)
+                c.create_oval(0 + i, 200, 0 + i + longb, 202, fill="black")
+                s = "" + str(0 + i/4) + " " + str(200/4)
+                ListPOI.append(s)
+                c.create_oval(0 + i, 220, 0 + i + longb, 222, fill="black")
+                s = "" + str(0 + i/4) + " " + str(220/4)
+                ListPOI.append(s)
+                c.create_oval(0 + i, 240, 0 + i + longb, 242, fill="black")
+                s = "" + str(0 + i/4) + " " + str(240/4)
+                ListPOI.append(s)
+                c.create_oval(0 + i, 260, 0 + i + longb, 262, fill="black")
+                s = "" + str(0 + i/4) + " " + str(260/4)
+                ListPOI.append(s)
+                c.create_oval(0 + i, 280, 0 + i + longb, 282, fill="black")
+                s = "" + str(0 + i/4) + " " + str(280/4)
+                ListPOI.append(s)
+                c.create_oval(0 + i, 300, 0 + i + longb, 302, fill="black")
+                s = "" + str(0 + i/4) + " " + str(300/4)
+                ListPOI.append(s)
+                c.create_oval(0 + i, 320, 0 + i + longb, 322, fill="black")
+                s = "" + str(0 + i/4) + " " + str(320/4)
+                ListPOI.append(s)
+                c.create_oval(0 + i, 340, 0 + i + longb, 342, fill="black")
+                s = "" + str(0 + i/4) + " " + str(340/4)
+                ListPOI.append(s)
+                c.create_oval(0 + i, 360, 0 + i + longb, 362, fill="black")
+                s = "" + str(0 + i/4) + " " + str(360/4)
+                ListPOI.append(s)
+                c.create_oval(0 + i, 380, 0 + i + longb, 382, fill="black")
+                s = "" + str(0 + i/4) + " " + str(380/4)
+                ListPOI.append(s)
+                c.create_oval(0 + i, 400, 0 + i + longb, 402, fill="black")
+                s = "" + str(0 + i/4) + " " + str(400/4)
+                ListPOI.append(s)
                 i = i + 20
-
                 #X and Y
+                print(ListPOI)
                 # ENTRY
+        def SaveFile():
+                        with open("MYPOI .txt", 'w') as file:
+                                for row in ListPOI:
+                                        s = "".join(map(str, row))
+                                        file.write(s + '\n')
+        SaveFile()
         radius = tk.StringVar()
         color = tk.StringVar()
         battery = tk.StringVar()
@@ -139,8 +196,7 @@ def InitGui():
                 for x in ListofNumbers:
                     print(x)
                     amountReadWSN = amountReadWSN + 1
-                countCIRCLE=amountReadWSN
-                colores= float(amountReadWSN) * float(color.get())
+
                 # COLOR FOR CIRCLE
                 id = 1
                 calcSensorID.clear()
@@ -199,6 +255,9 @@ def InitGui():
                                                 c.create_rectangle(0 + i, 265, 0 + i + longb, 270, fill="black")
                                                 c.create_rectangle(0 + i, 331, 0 + i + longb, 336, fill="black")
                                                 i = i + 66;
+                               # c.create_oval(int(xx) * 4, int(yy) * 4, int(xx) * 4 + 2, int(yy) * 4 + 2,
+                                    #          stipple="gray50",
+                                      #        fill="green", width=1, tags=id)
                                 # battery = c.create_rectangle(0, 0, 10, 10, fill='red')
                 elif (RadioVariable == "144"):
                                         for x in range(12):
@@ -441,6 +500,114 @@ def InitGui():
                                     s = "".join(map(str, row))
                                     file.write(s + '\n')
                         SaveFileSenss()
+
+        def CalcSingleq():  # calc single q
+            ms.showinfo(title=None, message="Read Sensor States")
+            text_fileq = filedialog.askopenfilename(initialdir="C:/", title="Open TextFile",
+                                                    filetypes=(("Text Files", "*.txt"),))
+            state=[]
+            text_fileq = open(text_fileq, 'r')
+            for x in text_fileq:
+                ListofNumbersCalcSingleqState.append(x)
+                state.append(x[12])
+            ListofNumbersCalcSingleqState.pop(0)
+            state.pop(0)
+            print(ListofNumbersCalcSingleqState)
+            print(state)
+            ms.showinfo(title=None, message="READ WSN FILE")
+            text_file = filedialog.askopenfilename(initialdir="C:/", title="Open TextFile",
+                                                   filetypes=(("Text Files", "*.txt"),))
+            text_file = open(text_file, 'r')
+            for x in text_file:
+                ListofNumbersCalcSingleq.append(x)
+                print(ListofNumbersCalcSingleq)
+            ListofNumbersCalcSingleq.pop(0)
+            for x in ListofNumbersCalcSingleq:
+                converted_listCalcSingleq.append(x.strip())
+            for i in range(len(converted_listCalcSingleq)):
+                converted_listCalcSingleq[i]+= state[i]
+            print(converted_listCalcSingleq)
+
+            # LIST NEIGTBOUR
+            ListSensorneigh.append("#parameters of run: ")
+            ListSensorneigh.append("#Number of Sensors " + "5")
+            ListSensorneigh.append("#Sensor Range: " + str(radius.get()))
+            ListSensorneigh.append("#POI: " + str(variableRadio.get()))
+            ListSensorneigh.append("#Sensor for file: " + str(text_file.name))
+            ListSensorneigh.append("Sensor for file: :WSN-5d-test0.txt")
+            ListSensorneigh.append("#q    s    1 2 3 4 5   q1   q2   q3   q4   q5")
+            id = 1
+            for x in converted_listCalcSingleq:
+                xx = x[0:2]
+                yy = x[5:7]
+                state=x[9]
+                print(state)
+                if state == '0':
+                    colo = "red"
+                else:
+                    colo = "green"
+                c.create_oval(int(xx) * 4 - 2, int(yy) * 4 - 2, int(xx) * 4 + 2,
+                              int(yy) * 4 + 2, stipple="gray50",
+                              outline="green", fill="green", width=1)
+                c.create_oval(int(xx) * 4 - (int(radius.get()) * 4),
+                              int(yy) * 4 - (int(radius.get()) * 4),
+                              int(xx) * 4 + (int(radius.get()) * 4),
+                              int(yy) * 4 + (int(radius.get()) * 4),
+                              outline=colo, tags=id)
+                c.create_text(int(xx) * 4 + 15, int(yy) * 4 + 15,
+                              font="Times 10 italic bold", text=id)
+                id += 1;
+
+            print(ListSensorneigh)
+
+            def circle(x1, y1, x2, y2, r1, r2):
+                distSq = (x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2)
+                radSumSq = (r1 + r2) * (r1 + r2)
+                if (distSq == radSumSq):
+                    return 1
+                elif (distSq > radSumSq):
+                    return -1
+                else:
+                    return 0
+
+            ys = ""
+            counter = 1
+            for x in converted_listCalcSingleq:
+                id = 1
+                helper = 0
+                for y in ListPOI:
+                    if(y[0]=='0'and y[4]=='0'):
+                        SensorHelper.append(str(
+                        circle(int(x[0:2]), int(y[0]), int(x[5:7]), int(y[4]), int(radius.get()),
+                               Poir)))
+                        xs = str(circle(int(x[0:2]), int(y[0]), int(x[5:7]), int(y[4]), int(radius.get()),
+                                              int(radius.get())))
+                        print(xs)
+                        '''
+                        beng = '-'
+                    if (beng in xs or str(counter) == xs[0:1]):
+                        donothing()
+                    else:
+                        if (len(xs) < 3):
+                            ys += xs[0]
+                            helper = helper + 1
+                        else:
+                            ys += xs[0:2]
+                            helper = helper + 1
+                    id = id + 1
+                SensorHelper.append(str(counter) + "    " + str(helper) + "     " + ys)
+                ys = ""
+                SensorHelper.clear()
+                counter = counter + 1
+                    '''
+            def SaveFileSenss():
+                with open("creates cov-10-WSN-5.txt"
+                          "", 'w') as file:
+                    for row in ListSensorneigh:
+                        s = "".join(map(str, row))
+                        file.write(s + '\n')
+
+            SaveFileSenss()
                 ###########################################################################################
 
 
@@ -463,6 +630,8 @@ def InitGui():
         SaveButton=tk.Button(main_window,text="cal sensor ID",command=SaveFileSens)
         SaveButton.pack(side="left")
         SaveButton = tk.Button(main_window, text="find WSN graph", command=OpenMYSensorNeighbour)
+        SaveButton.pack(side="left")
+        SaveButton = tk.Button(main_window, text="calc single q", command=CalcSingleq)
         SaveButton.pack(side="left")
         main_window.config(menu=menubar)
 #########################################################################################################################
