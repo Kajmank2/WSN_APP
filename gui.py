@@ -1,4 +1,7 @@
 import random
+import csv
+from itertools import chain
+from functools import reduce
 from tkinter import filedialog
 import PIL
 from PIL import ImageTk, Image, ImageDraw
@@ -33,6 +36,8 @@ def InitGui():
         converted_listCalcSingleq = []
         ListofNumbersCalcSingleqState=[]
         ListPOI = []
+        IdPOICOV=[]
+        ListPOIHelper=[]
         SensorHelper=[]
         ListofNeighbour=[]
         tk.Label(text="X 0-100").pack(side="bottom")
@@ -428,6 +433,7 @@ def InitGui():
                                 id+=1;
 
         def OpenMYSensorNeighbour(): #find WSN grapph
+
                         text_file = filedialog.askopenfilename(initialdir="C:/", title="Open TextFile",
                                                                filetypes=(("Text Files", "*.txt"),))
                         text_file = open(text_file, 'r')
@@ -501,12 +507,25 @@ def InitGui():
                                     file.write(s + '\n')
                         SaveFileSenss()
 
+
         def CalcSingleq():  # calc single q
+            r=35
+            coverage = 0.0
+            ListPOI.clear()
+            with open('POI4412.csv') as file:
+                reader=csv.reader(file)
+                for row in reader:
+                    print(row)
+                    ListPOI.append(row)
+            '''
             ms.showinfo(title=None, message="Read Sensor States")
             text_fileq = filedialog.askopenfilename(initialdir="C:/", title="Open TextFile",
                                                     filetypes=(("Text Files", "*.txt"),))
             state=[]
             text_fileq = open(text_fileq, 'r')
+            '''
+            state = []
+            text_fileq = open("FILES/sensor-states-0.txt") #do usuniecia potem
             for x in text_fileq:
                 ListofNumbersCalcSingleqState.append(x)
                 state.append(x[12])
@@ -514,10 +533,13 @@ def InitGui():
             state.pop(0)
             print(ListofNumbersCalcSingleqState)
             print(state)
+            '''
             ms.showinfo(title=None, message="READ WSN FILE")
             text_file = filedialog.askopenfilename(initialdir="C:/", title="Open TextFile",
                                                    filetypes=(("Text Files", "*.txt"),))
             text_file = open(text_file, 'r')
+            '''
+            text_file = open("FILES/WSN-5d.txt")
             for x in text_file:
                 ListofNumbersCalcSingleq.append(x)
                 print(ListofNumbersCalcSingleq)
@@ -569,37 +591,47 @@ def InitGui():
                     return -1
                 else:
                     return 0
+            #POI TO 1d ARRAY
+            flaten_list=reduce(lambda z, y :z + y,ListPOI)
 
-            ys = ""
+            ys=""
             counter = 1
+            ids = 1
             for x in converted_listCalcSingleq:
-                id = 1
                 helper = 0
-                for y in ListPOI:
-                    if(y[0]=='0'and y[4]=='0'):
-                        SensorHelper.append(str(
-                        circle(int(x[0:2]), int(y[0]), int(x[5:7]), int(y[4]), int(radius.get()),
-                               Poir)))
-                        xs = str(circle(int(x[0:2]), int(y[0]), int(x[5:7]), int(y[4]), int(radius.get()),
-                                              int(radius.get())))
-                        print(xs)
-                        '''
-                        beng = '-'
-                    if (beng in xs or str(counter) == xs[0:1]):
-                        donothing()
-                    else:
-                        if (len(xs) < 3):
-                            ys += xs[0]
-                            helper = helper + 1
+                for y in flaten_list:
+                    if(y[0]=='0'or y[0:2]=='5;'): #SOLUCJA ZAPISAC CSV JAKO CIĄG STRINGÓW NIE OSOBNĄ LISTE
+                        SensorHelper.append(str(circle(int(x[0:2]),int(x[5:7]), int(y[0]),  int(y[2:]), int(radius.get()),Poir)))
+                        ys=str(circle(int(x[0:2]),int(x[5:7]), int(y[0]),  int(y[2:]), int(radius.get()),Poir))
+                        if (ys[0] == '0'):
+                            donothing()
                         else:
-                            ys += xs[0:2]
-                            helper = helper + 1
-                    id = id + 1
-                SensorHelper.append(str(counter) + "    " + str(helper) + "     " + ys)
-                ys = ""
+                            helper += 1
+                    elif(y[0:3]=='100'):
+                        SensorHelper.append(
+                            str(circle(int(x[0:2]), int(x[5:7]) ,int(y[0:3]),  int(y[4:]), int(radius.get()), Poir)))
+                        ys=str(circle(int(x[0:2]), int(x[5:7]) ,int(y[0:3]),  int(y[4:]), int(radius.get()), Poir))
+                        if (ys[0] == '0'):
+                            donothing()
+                        else:
+                            helper += 1
+                    else:
+                        SensorHelper.append(
+                            str(circle(int(x[0:2]),  int(x[5:7]), int(y[0:2]), int(y[3:]), int(radius.get()), Poir)))
+                        ys=str(circle(int(x[0:2]),  int(x[5:7]), int(y[0:2]), int(y[3:]), int(radius.get()), Poir))
+                        if(ys[0]=='0'):
+                            donothing()
+                        else:
+                            helper+=1
+
+                coverage=411-helper
+                IdPOICOV.append(str(ids)+str(coverage))
+                ids += 1
                 SensorHelper.clear()
-                counter = counter + 1
-                    '''
+            print(IdPOICOV)
+
+
+
             def SaveFileSenss():
                 with open("creates cov-10-WSN-5.txt"
                           "", 'w') as file:
