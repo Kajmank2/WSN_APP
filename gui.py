@@ -548,6 +548,7 @@ def InitGui():
             print("COVEREGE SENSOR BY POI")
             print(IdPOICOV)
             idstates=1
+            arubaCloud=[]
             counterchuk=0
             amount=0
             abc=""
@@ -563,12 +564,15 @@ def InitGui():
                                 if(trucrypt[printerek]==z):
                                     if(z=='0' and trucrypt != y):
                                         amount=amount+1
+                                        arubaCloud.append(printerek)
                                 else:
                                     donothing()
                                 printerek=printerek+1
                         abc += str(idstates)+ "-" + str(amount) + "\n"
                 counterchuk=counterchuk+1
                 idstates=idstates+1
+            finalStates=dict.fromkeys(arubaCloud)
+            print(list(finalStates))
             print("Próba")
             print(amount)
             print("ABC")
