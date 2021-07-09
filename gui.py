@@ -776,6 +776,7 @@ def InitGui():
             arubaCloud=[]
             counterchuk=0
             amount=0
+            idAllq = 0
             abc=""
             #FORMAT
             BinaryList=[]
@@ -784,7 +785,10 @@ def InitGui():
                 BinaryList.append(Binary)
             print(BinaryList)
             for x in BinaryList:
+             abde=x
+             arubaCloud.clear()
              for z in x:
+                abfsd=0
                 if(z=='0'):
                     donothing()
                 else:
@@ -802,52 +806,60 @@ def InitGui():
                                 printerek=printerek+1
                         abc += str(idstates)+ "-" + str(amount) + "\n" #AMOUNT + STATES ON
                 counterchuk=counterchuk+1
-                idstates=idstates+1
-            finalStates=dict.fromkeys(arubaCloud) #DELETE DUPLICATE
-            #COVERAGE Q
-            coverageQ=len(finalStates)/36
-            # COVERAGE EVERY Q
-            qoverageString=0
-            Lista = []
-            strPoi=""
-            for x in chunkserPoi:
-                for y in x:
-                    if(y[0:2]=='-1'):
-                        donothing()
-                    else:
-                        strPoi+=y+"."
-                Lista.append(strPoi) # WSZYSTKIe POI ID z Pokryciem
-                strPoi=""
+                 # IMPORTANT FOR
+             finalStates = dict.fromkeys(arubaCloud)  # DELETE DUPLICATE
+             # COVERAGE Q
+             coverageQ = len(finalStates) / 36
+             # COVERAGE EVERY Q
+             qoverageString = 0
+             Lista = []
+             strPoi = ""
+             for x in chunkserPoi:
+                 for y in x:
+                     if (y[0:2] == '-1'):
+                         donothing()
+                     else:
+                         strPoi += y + "."
+                 Lista.append(strPoi)  # WSZYSTKIe POI ID z Pokryciem
+                 strPoi = ""
 
-            def calsum(l):
-                # returning sum of list using List comprehension
-                return sum([int(i) for i in l if type(i) == int or i.isdigit()])
-            # DLA 36 trening
-            ListwihCov=[]
-            asa="0"
-            ListwihCovPercent=[]
-            idCoverage=1
-            for x in Lista:
-                    abc=x.split('.')
-                    helperCov=0
-                    for z in abc:
-                        for y in finalStates:
-                            if(z[4:]==y):
-                                helperCov=helperCov+1
-                    asa= str(helperCov)    #str(helperCov - calsum(ListwihCov))
-                    abc.clear()
-                    idCoverage+=1
-                    #Calculate % POV
-                    ListwihCov.append(asa)
-            # LIST CALCULATION
-            z=[int(x) for x in ListwihCov]
-            x=([int(x) for x in IdPOICOV])
-            products = [a / b for a, b in zip(z, x)]
-            print(products)
-            #CALC SENSOR ID TO TXT
-            idAllq=0
-            ListSensorneigh.append(str(idAllq)+ " "+str(coverageQ) + "  " + "10   " + ' '.join(SensorStates) + "   " + '  '.join(str(round(e,1)) for e in products))
-            ListSensorneigh.append("0   0.00  0   0 0 0 0 0   0.00 0.00 0.00 0.00 0.00 ")
+             def calsum(l):
+                 # returning sum of list using List comprehension
+                 return sum([int(i) for i in l if type(i) == int or i.isdigit()])
+
+             # DLA 36 trening
+             ListwihCov = []
+             asa = "0"
+             ListwihCovPercent = []
+             idCoverage = 1
+             for x in Lista:
+                 abc = x.split('.')
+                 helperCov = 0
+                 for z in abc:
+                     for y in finalStates:
+                         if (z[4:] == y):
+                             helperCov = helperCov + 1
+                 asa = str(helperCov)  # str(helperCov - calsum(ListwihCov))
+                 abc.clear()
+                 idCoverage += 1
+                 # Calculate % POV
+                 ListwihCov.append(asa)
+             # LIST CALCULATION
+             z = [int(x) for x in ListwihCov]
+             x = ([int(x) for x in IdPOICOV])
+             products = [a / b for a, b in zip(z, x)]
+             print(products)
+             # CALC SENSOR ID TO TXT
+
+             counterchuk=0
+             idstates=idstates+1
+             randAppend=random.randint(0,1)
+             if(randAppend==0):
+                ListSensorneigh.append(str(idAllq) + " " + str(round(coverageQ, 1)) + "  " + str(idAllq)+ "   " + abde+  ' '.join(
+                 SensorStates) + "   " + '  '.join(str(round(e, 1)) for e in products))
+             idAllq+=1
+
+
             def SaveFileSenss():
                 with open("creates all-WSN-5.txt"
                           "", 'w') as file:
