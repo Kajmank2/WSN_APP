@@ -1,0 +1,8 @@
+#parameters of run: 
+#Number of Sensors 5
+#Sensor Range: 35
+#POI: 411
+#Sensor for file: FILES/WSN-5d.txt
+Sensor states for file: not appiled
+#id q    s    1 2 3 4 5   q1   q2   q3   q4   q5
+0 0.0  10      0.0  0.0  0.0  0.0  0.0
