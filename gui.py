@@ -1,5 +1,6 @@
 import random
 import csv
+import re
 from functools import reduce
 from tkinter import filedialog
 from  tkinter import messagebox as ms
@@ -265,8 +266,8 @@ def InitGui():
                 for x in ListofNumbers:
                     rand = random.uniform(0, 1)
                     if (rand < float(color.get())):
-                                    xval = int(x[0:2])
-                                    yval = int(x[5:7])
+                                    xval = int(re.search(r'\d+', x[0:2]).group())
+                                    yval = int(re.search(r'\d+', x[5:7]).group())
                                     sensorId +=1
                                     s2 = c.create_oval(xval*4 + int(radius.get()) * 4,
                                                    yval*4 + int(radius.get()) * 4,
@@ -285,8 +286,8 @@ def InitGui():
                                     print(calcSensorID)
                                     id += 1;
                     else :
-                                    xval = int(x[0:2])
-                                    yval = int(x[5:7])
+                                    xval = int(re.search(r'\d+', x[0:2]).group())
+                                    yval = int(re.search(r'\d+', x[5:7]).group())
                                     sensorId += 1
                                     s2 = c.create_oval(xval * 4 + int(radius.get()) * 4,
                                            yval * 4 + int(radius.get()) * 4,
@@ -391,8 +392,8 @@ def InitGui():
                         ListSensorneigh.append("#id num_of_neighb neigb-ID")
                         id = 1
                         for x in ListofNumbers:
-                                xx = x[0:2]
-                                yy = x[5:7]
+                                xx = int(re.search(r'\d+', x[0:2]).group())
+                                yy = int(re.search(r'\d+', x[5:7]).group())
                                 c.create_oval(int(xx) * 4-2, int(yy) * 4-2, int(xx) * 4 + 2,
                                               int(yy) * 4 + 2, stipple="gray50",
                                               outline="green",fill="green", width=1)
@@ -421,8 +422,8 @@ def InitGui():
                             id=1
                             helper = 0
                             for y in ListofNumbers:
-                                    ListofNeighbour.append(str(id) + str(circle(int(x[0:2]),int(y[0:2]), int(x[5:7]),int(y[5:7]),int(radius.get()),int(radius.get()))))
-                                    xs=str(id) + str(circle(int(x[0:2]),int(y[0:2]), int(x[5:7]),int(y[5:7]),int(radius.get()),int(radius.get())))
+                                    ListofNeighbour.append(str(id) + str(circle(int(re.search(r'\d+', x[0:2]).group()),int(re.search(r'\d+', x[5:7]).group()), int(re.search(r'\d+', y[0:2]).group()), int(re.search(r'\d+', y[5:7]).group()),int(radius.get()),int(radius.get()))))
+                                    xs=str(id) + str(circle(int(re.search(r'\d+', x[0:2]).group()),int(re.search(r'\d+', x[5:7]).group()), int(re.search(r'\d+', y[0:2]).group()),int(re.search(r'\d+', y[5:7]).group()),int(radius.get()),int(radius.get())))
                                     beng='-'
                                     if(beng in xs or  str(counter) == xs[0:1]):
                                         donothing()
@@ -447,6 +448,7 @@ def InitGui():
                         SaveFileSenss()
         def CalcSingleq():  # calc single q
             SensorStates=[]
+            IdPOICOV.clear()
             ListPOI.clear()
             ListSensorneigh.clear()
             converted_listCalcSingleq.clear()
@@ -462,14 +464,14 @@ def InitGui():
                 for row in reader:
                     print(row)
                     ListPOI.append(row)
-            '''
+
             ms.showinfo(title=None, message="Read Sensor States")
             text_fileq = filedialog.askopenfilename(initialdir="C:/", title="Open TextFile",
                                                     filetypes=(("Text Files", "*.txt"),))
             text_fileq = open(text_fileq, 'r')
-            '''
+
             state = []
-            text_fileq = open("FILES/sensor-states-10.txt") #do usuniecia potem STEJTY
+            #text_fileq = open("FILES/sensor-states-10.txt") #do usuniecia potem STEJTY
             for x in text_fileq:
                 ListofNumbersCalcSingleqState.append(x)
                 state.append(x[12])
@@ -477,14 +479,14 @@ def InitGui():
             state.pop(0)
             print(ListofNumbersCalcSingleqState)
             print(state)
-            '''
+
             ms.showinfo(title=None, message="READ WSN FILE")
             text_file = filedialog.askopenfilename(initialdir="C:/", title="Open TextFile",
                                                    filetypes=(("Text Files", "*.txt"),))
             text_file = open(text_file, 'r')
-            '''
+
             variableAm = 0
-            text_file = open("FILES/WSN-5d.txt")
+            #text_file = open("FILES/WSN-5d.txt")
             for x in text_file:
                 ListofNumbersCalcSingleq.append(x)
                 print(ListofNumbersCalcSingleq)
@@ -506,8 +508,8 @@ def InitGui():
             ListSensorneigh.append("#q    s    1 2 3 4 5   q1   q2   q3   q4   q5")
             id = 1
             for x in converted_listCalcSingleq:
-                xx = x[0:2]
-                yy = x[5:7]
+                xx = int(re.search(r'\d+', x[0:2]).group())
+                yy = int(re.search(r'\d+', x[5:7]).group())
                 state=x[9]
                 print(state)
                 if state == '0':
@@ -547,24 +549,24 @@ def InitGui():
                 helper = 0
                 for y in flaten_list:
                     if(y[0]=='0'or y[0:2]=='5;' or y[0:2]=='8;'): #SOLUCJA ZAPISAC CSV JAKO CIĄG STRINGÓW NIE OSOBNĄ LISTE
-                        SensorHelper.append(str(circle(int(x[0:2]),int(x[5:7]), int(y[0]),  int(y[2:]), int(radius.get()),Poir)))
-                        ys=str(circle(int(x[0:2]),int(x[5:7]), int(y[0]),  int(y[2:]), int(radius.get()),Poir))
+                        SensorHelper.append(str(circle(int(re.search(r'\d+', x[0:2]).group()),int(re.search(r'\d+', x[5:7]).group()), int(y[0]),  int(y[2:]), int(radius.get()),Poir)))
+                        ys=str(circle(int(re.search(r'\d+', x[0:2]).group()),int(re.search(r'\d+', x[5:7]).group()), int(y[0]),  int(y[2:]), int(radius.get()),Poir))
                         if (ys[0] == '0'):
                             donothing()
                         else:
                             helper += 1 #VALUE WHEN SENSOR STATE IS 1
                     elif(y[0:3]=='100'):
                         SensorHelper.append(
-                            str(circle(int(x[0:2]), int(x[5:7]) ,int(y[0:3]),  int(y[4:]), int(radius.get()), Poir)))
-                        ys=str(circle(int(x[0:2]), int(x[5:7]) ,int(y[0:3]),  int(y[4:]), int(radius.get()), Poir))
+                            str(circle(int(re.search(r'\d+', x[0:2]).group()), int(re.search(r'\d+', x[5:7]).group()) ,int(y[0:3]),  int(y[4:]), int(radius.get()), Poir)))
+                        ys=str(circle(int(re.search(r'\d+', x[0:2]).group()), int(re.search(r'\d+', x[5:7]).group()),int(y[0:3]),  int(y[4:]), int(radius.get()), Poir))
                         if (ys[0] == '0'):
                             donothing()
                         else:
                             helper += 1
                     else:
                         SensorHelper.append(
-                            str(circle(int(x[0:2]),  int(x[5:7]), int(y[0:2]), int(y[3:]), int(radius.get()), Poir)))
-                        ys=str(circle(int(x[0:2]),  int(x[5:7]), int(y[0:2]), int(y[3:]), int(radius.get()), Poir))
+                            str(circle(int(re.search(r'\d+', x[0:2]).group()),  int(re.search(r'\d+', x[5:7]).group()), int(y[0:2]), int(y[3:]), int(radius.get()), Poir)))
+                        ys=str(circle(int(re.search(r'\d+', x[0:2]).group()),  int(re.search(r'\d+', x[5:7]).group()), int(y[0:2]), int(y[3:]), int(radius.get()), Poir))
                         if(ys[0]=='0'):
                             donothing()
                         else:
@@ -687,6 +689,7 @@ def InitGui():
         def CalcALLq():  # calc single q
             SensorStates=[]
             ListPOI.clear()
+            IdPOICOV.clear()
             ListSensorneigh.clear()
             converted_listCalcSingleq.clear()
             ListofNumbersCalcSingleq.clear()
@@ -743,24 +746,24 @@ def InitGui():
                 helper = 0
                 for y in flaten_list:
                     if(y[0]=='0'or y[0:2]=='5;' or y[0:2]=='8;'): #SOLUCJA ZAPISAC CSV JAKO CIĄG STRINGÓW NIE OSOBNĄ LISTE
-                        SensorHelper.append(str(circle(int(x[0:2]),int(x[5:7]), int(y[0]),  int(y[2:]), int(radius.get()),Poir)))
-                        ys=str(circle(int(x[0:2]),int(x[5:7]), int(y[0]),  int(y[2:]), int(radius.get()),Poir))
+                        SensorHelper.append(str(circle(int(re.search(r'\d+', x[0:2]).group()),int(re.search(r'\d+', x[5:7]).group()), int(y[0]),  int(y[2:]), int(radius.get()),Poir)))
+                        ys=str(circle(int(re.search(r'\d+', x[0:2]).group()),int(re.search(r'\d+', x[5:7]).group()), int(y[0]),  int(y[2:]), int(radius.get()),Poir))
                         if (ys[0] == '0'):
                             donothing()
                         else:
                             helper += 1 #VALUE WHEN SENSOR STATE IS 1
                     elif(y[0:3]=='100'):
                         SensorHelper.append(
-                            str(circle(int(x[0:2]), int(x[5:7]) ,int(y[0:3]),  int(y[4:]), int(radius.get()), Poir)))
-                        ys=str(circle(int(x[0:2]), int(x[5:7]) ,int(y[0:3]),  int(y[4:]), int(radius.get()), Poir))
+                            str(circle(int(re.search(r'\d+', x[0:2]).group()), int(re.search(r'\d+', x[5:7]).group()) ,int(y[0:3]),  int(y[4:]), int(radius.get()), Poir)))
+                        ys=str(circle(int(re.search(r'\d+', x[0:2]).group()), int(re.search(r'\d+', x[5:7]).group()),int(y[0:3]),  int(y[4:]), int(radius.get()), Poir))
                         if (ys[0] == '0'):
                             donothing()
                         else:
                             helper += 1
                     else:
                         SensorHelper.append(
-                            str(circle(int(x[0:2]),  int(x[5:7]), int(y[0:2]), int(y[3:]), int(radius.get()), Poir)))
-                        ys=str(circle(int(x[0:2]),  int(x[5:7]), int(y[0:2]), int(y[3:]), int(radius.get()), Poir))
+                            str(circle(int(re.search(r'\d+', x[0:2]).group()),  int(re.search(r'\d+', x[5:7]).group()), int(y[0:2]), int(y[3:]), int(radius.get()), Poir)))
+                        ys=str(circle(int(re.search(r'\d+', x[0:2]).group()),  int(re.search(r'\d+', x[5:7]).group()), int(y[0:2]), int(y[3:]), int(radius.get()), Poir))
                         if(ys[0]=='0'):
                             donothing()
                         else:
