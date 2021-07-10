@@ -510,7 +510,7 @@ def InitGui():
             for x in converted_listCalcSingleq:
                 xx = int(re.search(r'\d+', x[0:2]).group())
                 yy = int(re.search(r'\d+', x[5:7]).group())
-                state=x[9]
+                state=(str(int(re.search(r'\d+', x[8:]).group())))
                 print(state)
                 if state == '0':
                     colo = "red"
@@ -677,7 +677,7 @@ def InitGui():
 
 
             def SaveFileSenss():
-                with open("creates cov-10-WSN-5.txt"
+                with open("creates cov-5-WSN-5d-test-1"
                           "", 'w') as file:
                     for row in ListSensorneigh:
                         s = "".join(map(str, row))
@@ -882,7 +882,7 @@ def InitGui():
 
 
             def SaveFileSenss():
-                with open("creates all-WSN-5.txt"
+                with open("creates all-WSN-5d-test-1.txt"
                           "", 'w') as file:
                     for row in ListSensorneigh:
                         s = "".join(map(str, row))
