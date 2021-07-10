@@ -2,6 +2,7 @@ import random
 import csv
 from functools import reduce
 from tkinter import filedialog
+from  tkinter import messagebox as ms
 import tkinter as tk
 import os
 import sys
@@ -12,7 +13,7 @@ ListSensorneigh=[]
 ListCover=[]
 ListPOI=[]
 ALLPOICOV=[]
-Poir=4
+Poir=1
 calcSensorID=[]
 calcSensorID.append(s)
 SquareArenas=40000
@@ -79,6 +80,7 @@ def InitGui():
                                 print(x)
         longb=2
         i=0
+
         for x in range(6):
             c.create_oval(0 + i, 0, 0 + i + longb, 4, fill="black")
             s = "" + str(0 + i / 4) + " " + str(0 / 4)
@@ -99,8 +101,48 @@ def InitGui():
             s = "" + str(0 + i / 4) + " " + str(334 / 4)
             ListPOI.append(s)
             i = i + 66;
-        # DLA POI 411 -------
         '''
+        for x in range(12):
+            c.create_oval(0 + i, 0, 0 + i + longb, 5, fill="black")
+            s = "" + str(0 + i / 4) + " " + str(0 / 4)
+            ListPOI.append(s)
+            c.create_oval(0 + i, 33, 0 + i + longb, 38, fill="black")
+            s = "" + str(0 + i / 4) + " " + str(36 / 4)
+            ListPOI.append(s)
+            c.create_oval(0 + i, 66, 0 + i + longb, 71, fill="black")
+            s = "" + str(0 + i / 4) + " " + str(68 / 4)
+            ListPOI.append(s)
+            c.create_oval(0 + i, 99, 0 + i + longb, 104, fill="black")
+            s = "" + str(0 + i / 4) + " " + str(102 / 4)
+            ListPOI.append(s)
+            c.create_oval(0 + i, 132, 0 + i + longb, 137, fill="black")
+            s = "" + str(0 + i / 4) + " " + str(134 / 4)
+            ListPOI.append(s)
+            c.create_oval(0 + i, 165, 0 + i + longb, 170, fill="black")
+            s = "" + str(0 + i / 4) + " " + str(168 / 4)
+            ListPOI.append(s)
+            c.create_oval(0 + i, 198, 0 + i + longb, 203, fill="black")
+            s = "" + str(0 + i / 4) + " " + str(202 / 4)
+            ListPOI.append(s)
+            c.create_oval(0 + i, 231, 0 + i + longb, 236, fill="black")
+            s = "" + str(0 + i / 4) + " " + str(234 / 4)
+            ListPOI.append(s)
+            c.create_oval(0 + i, 264, 0 + i + longb, 269, fill="black")
+            s = "" + str(0 + i / 4) + " " + str(264 / 4)
+            ListPOI.append(s)
+            c.create_oval(0 + i, 297, 0 + i + longb, 302, fill="black")
+            s = "" + str(0 + i / 4) + " " + str(300 / 4)
+            ListPOI.append(s)
+            c.create_oval(0 + i, 330, 0 + i + longb, 335, fill="black")
+            s = "" + str(0 + i / 4) + " " + str(334 / 4)
+            ListPOI.append(s)
+            c.create_oval(0 + i, 363, 0 + i + longb, 368, fill="black")
+            s = "" + str(0 + i / 4) + " " + str(366 / 4)
+            ListPOI.append(s)
+            i = i + 33
+            '''
+        '''
+        # DLA POI 411 -------
         for x in range(21):
                 c.create_oval(0 + i, 0, 0 + i + longb, 2, fill="black")
                 s=""+str(0+i/4) + " " + str(0/4)
@@ -165,11 +207,12 @@ def InitGui():
                 c.create_oval(0 + i, 400, 0 + i + longb, 402, fill="black")
                 s = "" + str(0 + i/4) + " " + str(400/4)
                 ListPOI.append(s)
-                i = i + 20
+                i = i + 2
+                '''
                 #X and Y
-                print(ListPOI)
+        print(ListPOI)
                 # ENTRY
-            '''
+
         def SaveFile():
                         with open("MYPOI .txt", 'w') as file:
                                 for row in ListPOI:
@@ -186,7 +229,7 @@ def InitGui():
         variableRadio = tk.StringVar(main_window, "36")
         def choice(text):
                 variableRadio.set(text)
-        valuesRadioPOI = {"POI 36": "36", "POI 144":"144", " POI 411" : "411"}
+        valuesRadioPOI = {"POI 36": "36", "POI 144":"144", " POI 441" : "441"}
         variableRadio=tk.StringVar(main_window,"36")
         tk.Label(text="---Points of interests (POIs)---").pack()
         for (text, value) in valuesRadioPOI.items():
@@ -266,52 +309,52 @@ def InitGui():
                 i = 0
                 if(RadioVariable=="36"):
                                 for x in range(6):
-                                                c.create_rectangle(0 + i, 0, 0 + i + longb, 5, fill="black")
-                                                c.create_rectangle(0 + i, 66, 0 + i + longb, 71, fill="black")
-                                                c.create_rectangle(0 + i, 133, 0 + i + longb, 138, fill="black")
-                                                c.create_rectangle(0 + i, 199, 0 + i + longb, 204, fill="black")
-                                                c.create_rectangle(0 + i, 265, 0 + i + longb, 270, fill="black")
-                                                c.create_rectangle(0 + i, 331, 0 + i + longb, 336, fill="black")
+                                                c.create_oval(0 + i, 0, 0 + i + longb, 5, fill="black")
+                                                c.create_oval(0 + i, 66, 0 + i + longb, 71, fill="black")
+                                                c.create_oval(0 + i, 133, 0 + i + longb, 138, fill="black")
+                                                c.create_oval(0 + i, 199, 0 + i + longb, 204, fill="black")
+                                                c.create_oval(0 + i, 265, 0 + i + longb, 270, fill="black")
+                                                c.create_oval(0 + i, 331, 0 + i + longb, 336, fill="black")
                                                 i = i + 66;
                 elif (RadioVariable == "144"):
                                         for x in range(12):
-                                                c.create_rectangle(0 + i, 0, 0 + i + longb, 5, fill="black")
-                                                c.create_rectangle(0 + i, 33, 0 + i + longb, 38, fill="black")
-                                                c.create_rectangle(0 + i, 66, 0 + i + longb, 71, fill="black")
-                                                c.create_rectangle(0 + i, 99, 0 + i + longb, 104, fill="black")
-                                                c.create_rectangle(0 + i, 132, 0 + i + longb, 137, fill="black")
-                                                c.create_rectangle(0 + i, 165, 0 + i + longb, 170, fill="black")
-                                                c.create_rectangle(0 + i, 198, 0 + i + longb, 203, fill="black")
-                                                c.create_rectangle(0 + i, 231, 0 + i + longb, 236, fill="black")
-                                                c.create_rectangle(0 + i, 264, 0 + i + longb, 269, fill="black")
-                                                c.create_rectangle(0 + i, 297, 0 + i + longb, 302, fill="black")
-                                                c.create_rectangle(0 + i, 330, 0 + i + longb, 335, fill="black")
-                                                c.create_rectangle(0 + i, 363, 0 + i + longb, 368, fill="black")
-                                                c.create_rectangle(0 + i, 396, 0 + i + longb, 401, fill="black")
+                                                c.create_oval(0 + i, 0, 0 + i + longb, 5, fill="black")
+                                                c.create_oval(0 + i, 33, 0 + i + longb, 38, fill="black")
+                                                c.create_oval(0 + i, 66, 0 + i + longb, 71, fill="black")
+                                                c.create_oval(0 + i, 99, 0 + i + longb, 104, fill="black")
+                                                c.create_oval(0 + i, 132, 0 + i + longb, 137, fill="black")
+                                                c.create_oval(0 + i, 165, 0 + i + longb, 170, fill="black")
+                                                c.create_oval(0 + i, 198, 0 + i + longb, 203, fill="black")
+                                                c.create_oval(0 + i, 231, 0 + i + longb, 236, fill="black")
+                                                c.create_oval(0 + i, 264, 0 + i + longb, 269, fill="black")
+                                                c.create_oval(0 + i, 297, 0 + i + longb, 302, fill="black")
+                                                c.create_oval(0 + i, 330, 0 + i + longb, 335, fill="black")
+                                                c.create_oval(0 + i, 363, 0 + i + longb, 368, fill="black")
+                                                c.create_oval(0 + i, 396, 0 + i + longb, 401, fill="black")
                                                 i = i + 33
-                elif (RadioVariable == "411"):
+                elif (RadioVariable == "441"):
                                         for x in range(20):
-                                                c.create_rectangle(0 + i, 0, 0 + i + longb, 2, fill="black")
-                                                c.create_rectangle(0 + i, 20, 0 + i + longb, 22, fill="black")
-                                                c.create_rectangle(0 + i, 40, 0 + i + longb, 42, fill="black")
-                                                c.create_rectangle(0 + i, 60, 0 + i + longb, 62, fill="black")
-                                                c.create_rectangle(0 + i, 80, 0 + i + longb, 82, fill="black")
-                                                c.create_rectangle(0 + i, 100, 0 + i + longb, 102, fill="black")
-                                                c.create_rectangle(0 + i, 120, 0 + i + longb, 122, fill="black")
-                                                c.create_rectangle(0 + i, 140, 0 + i + longb, 142, fill="black")
-                                                c.create_rectangle(0 + i, 160, 0 + i + longb, 162, fill="black")
-                                                c.create_rectangle(0 + i, 180, 0 + i + longb, 182, fill="black")
-                                                c.create_rectangle(0 + i, 200, 0 + i + longb, 202, fill="black")
-                                                c.create_rectangle(0 + i, 220, 0 + i + longb, 222, fill="black")
-                                                c.create_rectangle(0 + i, 240, 0 + i + longb, 242, fill="black")
-                                                c.create_rectangle(0 + i, 260, 0 + i + longb, 262, fill="black")
-                                                c.create_rectangle(0 + i, 280, 0 + i + longb, 282, fill="black")
-                                                c.create_rectangle(0 + i, 300, 0 + i + longb, 302, fill="black")
-                                                c.create_rectangle(0 + i, 320, 0 + i + longb, 322, fill="black")
-                                                c.create_rectangle(0 + i, 340, 0 + i + longb, 342, fill="black")
-                                                c.create_rectangle(0 + i, 360, 0 + i + longb, 362, fill="black")
-                                                c.create_rectangle(0 + i, 380, 0 + i + longb, 382, fill="black")
-                                                c.create_rectangle(0 + i, 400, 0 + i + longb, 402, fill="black")
+                                                c.create_oval(0 + i, 0, 0 + i + longb, 2, fill="black")
+                                                c.create_oval(0 + i, 20, 0 + i + longb, 22, fill="black")
+                                                c.create_oval(0 + i, 40, 0 + i + longb, 42, fill="black")
+                                                c.create_oval(0 + i, 60, 0 + i + longb, 62, fill="black")
+                                                c.create_oval(0 + i, 80, 0 + i + longb, 82, fill="black")
+                                                c.create_oval(0 + i, 100, 0 + i + longb, 102, fill="black")
+                                                c.create_oval(0 + i, 120, 0 + i + longb, 122, fill="black")
+                                                c.create_oval(0 + i, 140, 0 + i + longb, 142, fill="black")
+                                                c.create_oval(0 + i, 160, 0 + i + longb, 162, fill="black")
+                                                c.create_oval(0 + i, 180, 0 + i + longb, 182, fill="black")
+                                                c.create_oval(0 + i, 200, 0 + i + longb, 202, fill="black")
+                                                c.create_oval(0 + i, 220, 0 + i + longb, 222, fill="black")
+                                                c.create_oval(0 + i, 240, 0 + i + longb, 242, fill="black")
+                                                c.create_oval(0 + i, 260, 0 + i + longb, 262, fill="black")
+                                                c.create_oval(0 + i, 280, 0 + i + longb, 282, fill="black")
+                                                c.create_oval(0 + i, 300, 0 + i + longb, 302, fill="black")
+                                                c.create_oval(0 + i, 320, 0 + i + longb, 322, fill="black")
+                                                c.create_oval(0 + i, 340, 0 + i + longb, 342, fill="black")
+                                                c.create_oval(0 + i, 360, 0 + i + longb, 362, fill="black")
+                                                c.create_oval(0 + i, 380, 0 + i + longb, 382, fill="black")
+                                                c.create_oval(0 + i, 400, 0 + i + longb, 402, fill="black")
                                                 i = i + 20
                 listSenss.extend(listSens)
 
@@ -319,11 +362,6 @@ def InitGui():
                         python = sys.executable
                         os.execl(python, python, *sys.argv)
 
-        def SaveFile():
-                        with open("MySensors .txt", 'w') as file:
-                                for row in listSenss:
-                                        s = "".join(map(str, row))
-                                        file.write(s + '\n')
         def SaveFileSens():
                         with open("sensorId.txt", 'w') as file:
                                 for row in calcSensorID:
@@ -333,7 +371,7 @@ def InitGui():
         def donothing():  # HELPER
                         x = 0
 
-
+        POIVALUE=0
         def OpenMYSensorNeighbour(): #find WSN grapph
 
                         text_file = filedialog.askopenfilename(initialdir="C:/", title="Open TextFile",
@@ -408,11 +446,18 @@ def InitGui():
                                     file.write(s + '\n')
                         SaveFileSenss()
         def CalcSingleq():  # calc single q
-            r=35
             SensorStates=[]
-            coverage = 0.0
             ListPOI.clear()
-            with open('POI36.csv') as file:  # CHANGE TO PO 4412
+            ListSensorneigh.clear()
+            converted_listCalcSingleq.clear()
+            ListofNumbersCalcSingleq.clear()
+            if (str(variableRadio.get())=='441'):
+                POIVALUE=441
+            elif (str(variableRadio.get()) == '144'):
+                POIVALUE=144
+            else:
+                POIVALUE=36
+            with open( "POI"+str(POIVALUE)+'.csv') as file:  # CHANGE TO PO 4412 /36
                 reader=csv.reader(file)
                 for row in reader:
                     print(row)
@@ -421,7 +466,6 @@ def InitGui():
             ms.showinfo(title=None, message="Read Sensor States")
             text_fileq = filedialog.askopenfilename(initialdir="C:/", title="Open TextFile",
                                                     filetypes=(("Text Files", "*.txt"),))
-            state=[]
             text_fileq = open(text_fileq, 'r')
             '''
             state = []
@@ -439,6 +483,7 @@ def InitGui():
                                                    filetypes=(("Text Files", "*.txt"),))
             text_file = open(text_file, 'r')
             '''
+            variableAm = 0
             text_file = open("FILES/WSN-5d.txt")
             for x in text_file:
                 ListofNumbersCalcSingleq.append(x)
@@ -446,13 +491,14 @@ def InitGui():
             ListofNumbersCalcSingleq.pop(0)
             for x in ListofNumbersCalcSingleq:
                 converted_listCalcSingleq.append(x.strip())
+                variableAm+=1
             for i in range(len(converted_listCalcSingleq)):
                 converted_listCalcSingleq[i]+= state[i]
             print(converted_listCalcSingleq)
 
             # LIST NEIGTBOUR
             ListSensorneigh.append("#parameters of run: ")
-            ListSensorneigh.append("#Number of Sensors " + "5")
+            ListSensorneigh.append("#Number of Sensors " +str(variableAm))
             ListSensorneigh.append("#Sensor Range: " + str(radius.get()))
             ListSensorneigh.append("#POI: " + str(variableRadio.get()))
             ListSensorneigh.append("#Sensor for file: " + str(text_file.name))
@@ -495,15 +541,12 @@ def InitGui():
 
             #POI TO 1d ARRAY
             flaten_list=reduce(lambda z, y :z + y,ListPOI)
-
-            ys=""
-            counter = 1
             ids = 1
             # OBLICZANIE POKRYCIE KAŻDEGO SENSORA
             for x in converted_listCalcSingleq:
                 helper = 0
                 for y in flaten_list:
-                    if(y[0]=='0'or y[0:2]=='5;'): #SOLUCJA ZAPISAC CSV JAKO CIĄG STRINGÓW NIE OSOBNĄ LISTE
+                    if(y[0]=='0'or y[0:2]=='5;' or y[0:2]=='8;'): #SOLUCJA ZAPISAC CSV JAKO CIĄG STRINGÓW NIE OSOBNĄ LISTE
                         SensorHelper.append(str(circle(int(x[0:2]),int(x[5:7]), int(y[0]),  int(y[2:]), int(radius.get()),Poir)))
                         ys=str(circle(int(x[0:2]),int(x[5:7]), int(y[0]),  int(y[2:]), int(radius.get()),Poir))
                         if (ys[0] == '0'):
@@ -527,7 +570,7 @@ def InitGui():
                         else:
                             helper+=1
 
-                coverage=36-helper # ZMINA Z 411
+                coverage=POIVALUE-helper # ZMINA Z 411
                 IdPOICOV.append(str(coverage)) # ID + AMOUNT OF
                 pom=0
                 for x in SensorHelper:
@@ -538,13 +581,15 @@ def InitGui():
                 ids += 1
                 SensorHelper.clear()
             ########################################## END POI AMOUNT####################
-            chunkser = [ALLPOICOV[x:x + 36] for x in range(0, len(ALLPOICOV), 36)] # ZMIANA Z 411
-            chunkserPoi=[SensorHelperPoiID[x:x + 36] for x in range(0, len(SensorHelperPoiID), 36)] # POI in EVERY SENSEOR
+            chunkser = [ALLPOICOV[x:x + POIVALUE] for x in range(0, len(ALLPOICOV), POIVALUE)] #
+            chunkserPoi=[SensorHelperPoiID[x:x + POIVALUE] for x in range(0, len(SensorHelperPoiID), POIVALUE)] # POI in EVERY SENSEOR
+            '''
             print(chunkser)
             print("POI COV")
             print(ALLPOICOV)
             print("COVEREGE SENSOR BY POI")
             print(IdPOICOV)
+            '''
             idstates=0
             arubaCloud=[]
             counterchuk=0
@@ -571,7 +616,7 @@ def InitGui():
                 idstates=idstates+1
             finalStates=dict.fromkeys(arubaCloud) #DELETE DUPLICATE
             #COVERAGE Q
-            coverageQ=len(finalStates)/36
+            coverageQ=len(finalStates)/POIVALUE
             # COVERAGE EVERY Q
             qoverageString=0
             Lista = []
@@ -611,7 +656,7 @@ def InitGui():
             products = [a / b for a, b in zip(z, x)]
             print(products)
             #CALC SENSOR ID TO TXT
-            ListSensorneigh.append(str(coverageQ) + "  " + "10   " + ' '.join(SensorStates) + "   " + '  '.join(str(round(e,1)) for e in products))
+            ListSensorneigh.append(str(round(coverageQ,2)) + "  " + "10   " + ' '.join(SensorStates) + "   " + '  '.join(str(round(e,1)) for e in products))
             '''
             print("COVERAGE Q")
             print(ListSensorneigh)
@@ -642,76 +687,43 @@ def InitGui():
         def CalcALLq():  # calc single q
             SensorStates=[]
             ListPOI.clear()
-            with open('POI36.csv') as file:  # CHANGE TO PO 4412
+            ListSensorneigh.clear()
+            converted_listCalcSingleq.clear()
+            ListofNumbersCalcSingleq.clear()
+            if (str(variableRadio.get()) == '441'):
+                POIVALUE = 441
+            elif (str(variableRadio.get()) == '144'):
+                POIVALUE = 144
+            else:
+                POIVALUE = 36
+            with open("POi"+str(POIVALUE)+'.csv') as file:  # CHANGE TO PO 4412
                 reader=csv.reader(file)
                 for row in reader:
                     print(row)
                     ListPOI.append(row)
-            '''
-            ms.showinfo(title=None, message="Read Sensor States")
-            text_fileq = filedialog.askopenfilename(initialdir="C:/", title="Open TextFile",
-                                                    filetypes=(("Text Files", "*.txt"),))
-            state=[]
-            text_fileq = open(text_fileq, 'r')
-            '''
-            state = []
-            text_fileq = open("FILES/sensor-states-10.txt") #do usuniecia potem STEJTY
-            for x in text_fileq:
-                ListofNumbersCalcSingleqState.append(x)
-                state.append(x[12])
-            ListofNumbersCalcSingleqState.pop(0)
-            state.pop(0)
-            print(ListofNumbersCalcSingleqState)
-            print(state)
-            '''
             ms.showinfo(title=None, message="READ WSN FILE")
             text_file = filedialog.askopenfilename(initialdir="C:/", title="Open TextFile",
                                                    filetypes=(("Text Files", "*.txt"),))
+            variableAm = 0
             text_file = open(text_file, 'r')
-            '''
-            text_file = open("FILES/WSN-5d.txt")
             for x in text_file:
                 ListofNumbersCalcSingleq.append(x)
                 print(ListofNumbersCalcSingleq)
             ListofNumbersCalcSingleq.pop(0)
             for x in ListofNumbersCalcSingleq:
                 converted_listCalcSingleq.append(x.strip())
-            for i in range(len(converted_listCalcSingleq)):
-                converted_listCalcSingleq[i]+= state[i]
-            print(converted_listCalcSingleq)
+                variableAm+=1
             ListSensorneigh.clear()
             # LIST NEIGTBOUR
             ListSensorneigh.append("#parameters of run: ")
-            ListSensorneigh.append("#Number of Sensors " + "5")
+            ListSensorneigh.append("#Number of Sensors " + str(variableAm))
             ListSensorneigh.append("#Sensor Range: " + str(radius.get()))
             ListSensorneigh.append("#POI: " + str(variableRadio.get()))
             ListSensorneigh.append("#Sensor for file: " + str(text_file.name))
             ListSensorneigh.append("Sensor states for file: not appiled")
-            ListSensorneigh.append("#id q    s    1 2 3 4 5   q1   q2   q3   q4   q5")
+            ListSensorneigh.append("#id q    s    1 2 3 4 5   q1   q2   q3   q4   q5 ...")
             id = 1
-            '''
-            for x in converted_listCalcSingleq:
-                xx = x[0:2]
-                yy = x[5:7]
-                state=x[9]
-                print(state)
-                if state == '0':
-                    colo = "red"
-                else:
-                    colo = "green"
-                c.create_oval(int(xx) * 4 - 2, int(yy) * 4 - 2, int(xx) * 4 + 2,
-                              int(yy) * 4 + 2, stipple="gray50",
-                              outline="green", fill="green", width=1)
-                c.create_oval(int(xx) * 4 - (int(radius.get()) * 4),
-                              int(yy) * 4 - (int(radius.get()) * 4),
-                              int(xx) * 4 + (int(radius.get()) * 4),
-                              int(yy) * 4 + (int(radius.get()) * 4),
-                              outline=colo, tags=id)
-                c.create_text(int(xx) * 4 + 15, int(yy) * 4 + 15,
-                              font="Times 10 italic bold", text=id)
-                SensorStates.append(state)
-                id += 1;
-                '''
+
             print(ListSensorneigh)
             def circle(x1, y1, x2, y2, r1, r2):
                 distSq = (x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2)
@@ -730,7 +742,7 @@ def InitGui():
             for x in converted_listCalcSingleq:
                 helper = 0
                 for y in flaten_list:
-                    if(y[0]=='0'or y[0:2]=='5;'): #SOLUCJA ZAPISAC CSV JAKO CIĄG STRINGÓW NIE OSOBNĄ LISTE
+                    if(y[0]=='0'or y[0:2]=='5;' or y[0:2]=='8;'): #SOLUCJA ZAPISAC CSV JAKO CIĄG STRINGÓW NIE OSOBNĄ LISTE
                         SensorHelper.append(str(circle(int(x[0:2]),int(x[5:7]), int(y[0]),  int(y[2:]), int(radius.get()),Poir)))
                         ys=str(circle(int(x[0:2]),int(x[5:7]), int(y[0]),  int(y[2:]), int(radius.get()),Poir))
                         if (ys[0] == '0'):
@@ -754,7 +766,7 @@ def InitGui():
                         else:
                             helper+=1
 
-                coverage=36-helper # ZMINA Z 411
+                coverage=POIVALUE-helper # ZMINA Z 411
                 IdPOICOV.append(str(coverage)) # ID + AMOUNT OF
                 pom=0
                 for x in SensorHelper:
@@ -765,8 +777,8 @@ def InitGui():
                 ids += 1
                 SensorHelper.clear()
             ########################################## END POI AMOUNT####################
-            chunkser = [ALLPOICOV[x:x + 36] for x in range(0, len(ALLPOICOV), 36)] # ZMIANA Z 411
-            chunkserPoi=[SensorHelperPoiID[x:x + 36] for x in range(0, len(SensorHelperPoiID), 36)] # POI in EVERY SENSEOR
+            chunkser = [ALLPOICOV[x:x + POIVALUE] for x in range(0, len(ALLPOICOV), POIVALUE)] # ZMIANA Z 411
+            chunkserPoi=[SensorHelperPoiID[x:x + POIVALUE] for x in range(0, len(SensorHelperPoiID), POIVALUE)] # POI in EVERY SENSEOR
             print(chunkser)
             print("POI COV")
             print(ALLPOICOV)
@@ -780,6 +792,12 @@ def InitGui():
             abc=""
             #FORMAT
             BinaryList=[]
+            tempBinary=""
+            '''
+            for abc in range(variableAm):
+                tempBinary='{:'+str(variableAm)+'b}'
+            # TEMP BINARKA DO OGARNIECIA
+            '''
             for x in range (0,32):
                 Binary='{:05b}'.format(x)
                 BinaryList.append(Binary)
@@ -804,12 +822,12 @@ def InitGui():
                                 else:
                                     donothing()
                                 printerek=printerek+1
-                        abc += str(idstates)+ "-" + str(amount) + "\n" #AMOUNT + STATES ON
+                       # abc += str(idstates)+ "-" + str(amount) + "\n" #AMOUNT + STATES ON
                 counterchuk=counterchuk+1
                  # IMPORTANT FOR
              finalStates = dict.fromkeys(arubaCloud)  # DELETE DUPLICATE
              # COVERAGE Q
-             coverageQ = len(finalStates) / 36
+             coverageQ = len(finalStates) / POIVALUE
              # COVERAGE EVERY Q
              qoverageString = 0
              Lista = []
@@ -855,7 +873,7 @@ def InitGui():
              idstates=idstates+1
              randAppend=random.randint(0,1)
              if(randAppend==0):
-                ListSensorneigh.append(str(idAllq) + " " + str(round(coverageQ, 1)) + "  " + str(idAllq)+ "   " + abde+  ' '.join(
+                ListSensorneigh.append(str(idAllq) + " " + str(round(coverageQ, 2)) + "  " + str(idAllq)+ "    " + abde+  '  '.join(
                  SensorStates) + "   " + '  '.join(str(round(e, 1)) for e in products))
              idAllq+=1
 
@@ -868,7 +886,7 @@ def InitGui():
                         file.write(s + '\n')
 
             SaveFileSenss()
-
+            '''
             print("COVERAGE Q")
             print(ListSensorneigh)
 
@@ -882,7 +900,7 @@ def InitGui():
             print(arubaCloud)
             print("PO KONWERSJI")
             print(list(finalStates))
-
+            '''
 
 
         myButton = tk.Button(main_window, text="SHOW WSN", command=Init)
