@@ -1,3 +1,4 @@
+'''
 import math
 def circle(x1, y1, x2, y2, r1, r2):
     distSq = (x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2)
@@ -17,3 +18,8 @@ print(is_circle_collision([90,90,35],[85,20,35]))
 print(circle(90,90,85,20,35,35))
 intersects = math.hypot(90-85, 90-20) <= (35 + 35)
 print(intersects)
+'''
+List=[1,2,3]
+PreList=[4,5,6]
+List=PreList
+print(List)

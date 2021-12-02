@@ -465,13 +465,13 @@ def InitGui():
                     print(row)
                     ListPOI.append(row)
 
-            ms.showinfo(title=None, message="Read Sensor States")
-            text_fileq = filedialog.askopenfilename(initialdir="C:/", title="Open TextFile",
-                                                    filetypes=(("Text Files", "*.txt"),))
-            text_fileq = open(text_fileq, 'r')
+            #ms.showinfo(title=None, message="Read Sensor States")
+            #text_fileq = filedialog.askopenfilename(initialdir="C:/", title="Open TextFile",
+            #                                       filetypes=(("Text Files", "*.txt"),))
+            #text_fileq = open(text_fileq, 'r')
 
             state = []
-            #text_fileq = open("FILES/sensor-states-10.txt") #do usuniecia potem STEJTY
+            text_fileq = open("FILES/sensor-states-10.txt") #do usuniecia potem STEJTY
             for x in text_fileq:
                 ListofNumbersCalcSingleqState.append(x)
                 state.append(x[12])
@@ -480,13 +480,13 @@ def InitGui():
             print(ListofNumbersCalcSingleqState)
             print(state)
 
-            ms.showinfo(title=None, message="READ WSN FILE")
-            text_file = filedialog.askopenfilename(initialdir="C:/", title="Open TextFile",
-                                                   filetypes=(("Text Files", "*.txt"),))
-            text_file = open(text_file, 'r')
+            #ms.showinfo(title=None, message="READ WSN FILE")
+            #text_file = filedialog.askopenfilename(initialdir="C:/", title="Open TextFile",
+            #                                        filetypes=(("Text Files", "*.txt"),))
+            #text_file = open(text_file, 'r')
 
             variableAm = 0
-            #text_file = open("FILES/WSN-5d.txt")
+            text_file = open("FILES/WSN-5d.txt")
             for x in text_file:
                 ListofNumbersCalcSingleq.append(x)
                 print(ListofNumbersCalcSingleq)
